@@ -1,0 +1,21 @@
+// Routine
+
+need eat
+need sleep
+need think
+
+// a fazer
+Melhorar estrutura philo
+
+// por fazer
+melhores checks de args tipo push swap
+programar rotina
+programar funcao de comer
+logs da mesma
+programar funcao de dormir
+logs da mesma
+programar funcao de pensar
+logs da mesma
+programar check de mortes
+logs da mesma
+programar limite de vezes a comer

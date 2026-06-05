@@ -14,12 +14,17 @@
 
 int	main(int argc, char *argv[])
 {
-	t_philos	**philos;
+	t_philos	*philos;
+	t_data		data;
 
 	philos = NULL;
 	if (main_check(argc, argv))
 		return (1);
-	set_vars(argv, philos);
+	set_data(argv, &data);
+	philos = malloc(data.philo_cnt * sizeof(t_philos));
+	if (!philos)
+		return (1);
+	set_philos(philos, data);
 	start_simulation(philos);
 	return (0);
 }

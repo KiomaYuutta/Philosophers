@@ -6,30 +6,18 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:40:19 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/01/21 12:46:12 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/03 10:32:05 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-#include "checks.h"
 
 int	check_args(int argc)
 {
-	if (argc < 4 || argc > 5)
+	if (argc != 1 && (argc < 4 || argc > 5))
 	{
 		printf("Wrong number of arguments\n");
 		return (1);
-	}
-	return (0);
-}
-
-int	check_chars(char *str)
-{
-	while (*str)
-	{
-		if (*str < 48 && *str > 57)
-			return (1);
-		str++;
 	}
 	return (0);
 }

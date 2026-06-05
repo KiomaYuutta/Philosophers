@@ -6,11 +6,11 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 11:36:51 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/01/08 14:02:57 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/03 10:32:19 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checks.h"
+#include "../philo.h"
 
 int	main_check(int argc, char *argv[])
 {

@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:45:43 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/01/06 12:23:11 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/03 10:30:05 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,15 @@ int	pl_atoi(char *number)
 		number++;
 	}
 	return (result);
+}
+
+int	check_chars(char *str)
+{
+	while (*str)
+	{
+		if (*str < 48 && *str > 57)
+			return (1);
+		str++;
+	}
+	return (0);
 }

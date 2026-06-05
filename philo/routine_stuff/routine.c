@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checks.h                                           :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 11:50:06 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/01/08 12:56:09 by dide-alm         ###   ########.fr       */
+/*   Created: 2026/01/06 13:14:08 by dide-alm          #+#    #+#             */
+/*   Updated: 2026/06/05 11:41:44 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKS_H
-# define CHECKS_H
+#include "../philo.h"
 
-# include "../philo.h"
+void	eat_spaghetti(t_philos **philos)
+{
+	philos++;
+	/* monitor->ttd = monitor->ttd;
+	monitor->tte = monitor->tte;
+	monitor->tts = monitor->tts; */
+}
 
-int	pl_atoi(char *number);
-int	check_args(int argc);
-int	check_values(int argc, char *argv[]);
+void	*routine(void *arg)
+{
+	arg++;
+	/* t_monitor **monitor;
 
-#endif
+	monitor = arg;
+	usleep(50);
+	usleep(monitor->tts);
+
+	eat_spaghetti(monitor);
+	return (NULL); */
+	return (NULL);
+}

@@ -6,15 +6,24 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 11:08:32 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/01/13 13:51:19 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/05 11:38:34 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	start_simulation(t_philos **philos)
+int	start_simulation(t_philos *philos, int n_philo)
 {
-	philos++;
+	int	cnt;
+
+	cnt = 0;
+	while (cnt < n_philo)
+	{
+		pthread_create(&(philos[cnt].philos), 0, &routine, &(philos[cnt]));
+		cnt++;
+	}
+	cnt = 0;
+	return (0);
 	/* int	counter;
 
 	counter = 0;
@@ -33,7 +42,5 @@ int	start_simulation(t_philos **philos)
 	{
 		pthread_join(philos[counter].philos, NULL);
 		counter++;
-	}
-	return (0); */
-	return (0);
+	}*/
 }

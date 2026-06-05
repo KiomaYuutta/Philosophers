@@ -1,9 +1,3 @@
-// Routine
-
-need eat
-need sleep
-need think
-
 // a fazer
 Melhorar estrutura philo
 
@@ -19,3 +13,11 @@ logs da mesma
 programar check de mortes
 logs da mesma
 programar limite de vezes a comer
+
+------------------------------------------------------------
+
+// Routine
+
+need eat
+need sleep
+need think

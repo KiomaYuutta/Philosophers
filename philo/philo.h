@@ -29,26 +29,32 @@ typedef struct s_data
 
 typedef struct s_philos
 {
-	pthread_mutex_t	*forks;
+	pthread_mutex_t	*forks_m;
 	pthread_t		philos;
+	long long		last_time_eat;
+	int			*forks_i;
+	int			philo_id;
 	int			l_hand;
 	int			r_hand;
 	int			time_to_die;
 	int			time_to_eat;
 	int			time_to_sleep;
+	int			limit;
+	int			someone_died;
 }	t_philos;
 
 void	*routine(void *arg);
 void	reset_struct(void);
 void	set_data(char *argv[], t_data *data);
-void	set_philos(t_philos *philos, t_data data);
+void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex, int *forks_i);
 void	free_mem(void);
 int		ft_atoi(const char *nptr);
 int		main_check(int argc, char *argv[]);
-int		start_simulation(t_philos *philos);
+int		start_simulation(t_philos *philos, int n_philo);
 int		pl_atoi(char *number);
 int		check_args(int argc);
 int		check_values(int argc, char *argv[]);
 int		check_chars(char *str);
+int		clean_memory(t_philos *philos, pthread_mutex_t *mutex, int *fork_i, int n_philos);
 
 #endif

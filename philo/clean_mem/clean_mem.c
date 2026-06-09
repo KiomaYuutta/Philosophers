@@ -1,42 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start_sim.c                                        :+:      :+:    :+:   */
+/*   clean_mem.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/08 11:08:32 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/05 17:48:14 by dide-alm         ###   ########.fr       */
+/*   Created: 2026/06/05 12:30:20 by dide-alm          #+#    #+#             */
+/*   Updated: 2026/06/05 23:15:54 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
-void	monitor(t_philos *philos, int n_philo)
+void	clean_mutex(pthread_mutex_t *mutex, int n_philo)
 {
 	int	cnt;
 
-	while(1)
-	{
-		cnt = 0;
-		while (cnt < n_philo)
-		{
-			
-			cnt++;
-		}
-	}
+	cnt = 0;
+	while (cnt < n_philo)
+		pthread_mutex_destroy(&(mutex[cnt++]));
+	free (mutex);
 }
 
-int	start_simulation(t_philos *philos, int n_philo)
+int	clean_memory(t_philos *philos, pthread_mutex_t *mutex, int *fork_i, int n_philos)
 {
-	int	cnt;
-
-	cnt = 0;
-	while (cnt < n_philo)
-		pthread_create(&(philos[cnt].philos), 0, &routine, &(philos[cnt++]));
-	cnt = 0;
-	monitor(philos, n_philo);
-	while (cnt < n_philo)
-		pthread_join(philos[cnt++].philos, NULL);
-	return (0);
+	if (mutex)
+		clean_mutex(mutex, n_philos);
+	if (philos)
+		free(philos);
+	if (fork_i)
+		free(fork_i);
+	return (1);
 }

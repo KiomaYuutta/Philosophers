@@ -17,6 +17,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/time.h>
+
+typedef struct timeval	t_timeval;
 
 typedef struct s_data
 {
@@ -30,7 +33,10 @@ typedef struct s_data
 typedef struct s_philos
 {
 	pthread_mutex_t	*forks_m;
+	pthread_mutex_t	*log_lock;
 	pthread_t		philos;
+	long long		start_time;
+	long long		log_time;
 	long long		last_time_eat;
 	int			*forks_i;
 	int			philo_id;
@@ -43,10 +49,15 @@ typedef struct s_philos
 	int			someone_died;
 }	t_philos;
 
+long long	get_time_ms();
 void	*routine(void *arg);
 void	reset_struct(void);
+void	log_timestamp(t_philos *philos, char *str);
 void	set_data(char *argv[], t_data *data);
 void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex, int *forks_i);
+void	leave_forks(t_philos *philos);
+void	grab_forks(t_philos *philos);
+void	precise_sleep(int time_ms);
 void	free_mem(void);
 int		ft_atoi(const char *nptr);
 int		main_check(int argc, char *argv[]);

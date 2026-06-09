@@ -1,7 +1,17 @@
 NAME = philo
 
-SOURCES = philo.c start_sim.c setvars.c checkers/main_check.c \
-checkers/checks1.c checkers/checks_utils.c routine_stuff/routines.c
+SOURCES = philo.c \
+setdata.c \
+start_sim.c \
+utils.c \
+checkers/checks_utils.c \
+checkers/checks1.c \
+checkers/main_check.c \
+clean_mem/clean_mem.c \
+logs/log_actions.c \
+routine_stuff/forks.c \
+routine_stuff/routine.c \
+
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -11,8 +21,7 @@ LIBS = -pthread
 all: $(NAME)
 
 $(NAME): $(OBJECTS) philo.h
-	ar r philo.a philo.h $(OBJECTS)
-	cc $(CFLAGS) philo.a -o philo $(LIBS)
+	cc $(CFLAGS) $(OBJECTS) -o philo $(LIBS)
 
 clean:
 	rm -f $(OBJECTS)

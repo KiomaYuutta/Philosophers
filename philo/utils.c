@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 11:02:50 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/03 11:03:01 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/09 17:29:51 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,21 @@ int	ft_atoi(const char *nptr)
 		counter++;
 	}
 	return (result * is_neg);
+}
+
+long long	get_time_ms()
+{
+	t_timeval	timeval;
+
+	gettimeofday(&timeval, NULL);
+	return ((timeval.tv_sec * 1000) + (timeval.tv_usec / 1000));
+}
+
+void	precise_sleep(int time_ms)
+{
+	long long	start;
+
+	start = get_time_ms();
+	while ((get_time_ms() - start) < time_ms)
+		usleep(500);
 }

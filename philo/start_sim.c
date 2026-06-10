@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 11:08:32 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/09 18:05:48 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/10 17:12:37 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	set_death(t_philos *philos, int n_philos)
 	}
 }
 
-void	monitor(t_philos *philos, int n_philo)
+void	monitor(t_philos *philos, pthread_mutex_t *log_lock, int n_philo)
 {
 	int	cnt;
 
@@ -33,10 +33,10 @@ void	monitor(t_philos *philos, int n_philo)
 		cnt = 0;
 		while (cnt < n_philo)
 		{
-			if ((get_time_ms() - philos->last_time_eat) < philos->time_to_die)
+			if ((get_time_ms() - philos->last_time_eat) > philos->time_to_die)
 			{
 				set_death(philos, n_philo);
-				log_timestamp(&(philos[cnt]), "died");
+				log_timestamp(&(philos[cnt]), log_lock, "died");
 				return ;
 			}
 			cnt++;
@@ -44,21 +44,18 @@ void	monitor(t_philos *philos, int n_philo)
 	}
 }
 
-int	start_simulation(t_philos *philos, int n_philo)
+int	start_simulation(t_philos *philos, pthread_mutex_t *log_lock, int n_philo)
 {
 	int	cnt;
 
 	cnt = 0;
 	while (cnt < n_philo)
 	{
-		philos->start_time = get_time_ms();
-		philos->last_time_eat = philos->start_time;
-		philos->log_time = philos->start_time;
 		pthread_create(&(philos[cnt].philos), 0, &routine, &(philos[cnt]));
 		cnt++;
 	}
 	cnt = 0;
-	monitor(philos, n_philo);
+	monitor(philos, log_lock, n_philo);
 	while (cnt < n_philo)
 		pthread_join(philos[cnt++].philos, NULL);
 	return (0);

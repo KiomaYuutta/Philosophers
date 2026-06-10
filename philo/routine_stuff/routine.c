@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:14:08 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/09 17:34:47 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/10 17:46:49 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,25 @@
 void	eat_spaghetti(t_philos *philos)
 {
 	grab_forks(philos);
-	log_timestamp(philos, "is eating");
+	log_timestamp(philos, philos->log_lock, "is eating");
+	philos->last_time_eat = get_time_ms();
 	precise_sleep(philos->time_to_eat);
-	gettimeofday(philos->last_time_eat, NULL);
 	leave_forks(philos);
 }
 
 void	tink(t_philos *philos)
 {
-	log_timestamp(philos, "is thinking");
+	if (philos->someone_died)
+		return ;
+	log_timestamp(philos, philos->log_lock, "is thinking");
 	precise_sleep(1);
 }
 
 void	mimir(t_philos *philos)
 {
-	log_timestamp(philos, "is sleeping");
+	if (philos->someone_died)
+		return ;
+	log_timestamp(philos, philos->log_lock, "is sleeping");
 	precise_sleep(philos->time_to_sleep);
 }
 
@@ -47,6 +51,8 @@ void	*routine(void *arg)
 		eat_spaghetti(philos);
 		tink(philos);
 		mimir(philos);
+		if (philos->someone_died)
+			return (NULL);
 		if (philos->limit != 0)
 			cnt++;
 	}

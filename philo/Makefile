@@ -27,7 +27,7 @@ clean:
 	rm -f $(OBJECTS)
 
 fclean: clean
-	rm -f $(NAME) philo.a
+	rm -f $(NAME)
 
 re: fclean all
 

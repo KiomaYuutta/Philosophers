@@ -23,6 +23,7 @@ typedef struct timeval	t_timeval;
 
 typedef struct s_data
 {
+	pthread_mutex_t *log_lock;
 	int	philo_cnt;
 	int	n_must_eat;
 	int	time_to_die;
@@ -36,7 +37,6 @@ typedef struct s_philos
 	pthread_mutex_t	*log_lock;
 	pthread_t		philos;
 	long long		start_time;
-	long long		log_time;
 	long long		last_time_eat;
 	int			*forks_i;
 	int			philo_id;
@@ -52,7 +52,7 @@ typedef struct s_philos
 long long	get_time_ms();
 void	*routine(void *arg);
 void	reset_struct(void);
-void	log_timestamp(t_philos *philos, char *str);
+void	log_timestamp(t_philos *philos, pthread_mutex_t *log_lock, char *str);
 void	set_data(char *argv[], t_data *data);
 void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex, int *forks_i);
 void	leave_forks(t_philos *philos);
@@ -61,7 +61,7 @@ void	precise_sleep(int time_ms);
 void	free_mem(void);
 int		ft_atoi(const char *nptr);
 int		main_check(int argc, char *argv[]);
-int		start_simulation(t_philos *philos, int n_philo);
+int		start_simulation(t_philos *philos, pthread_mutex_t *log_lock, int n_philo);
 int		pl_atoi(char *number);
 int		check_args(int argc);
 int		check_values(int argc, char *argv[]);

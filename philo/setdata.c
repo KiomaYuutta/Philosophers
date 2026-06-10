@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 12:29:44 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/09 16:30:22 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/10 17:37:59 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_data(char *argv[], t_data *data)
 		if (ft_atoi(argv[5]) == 0)
 			data->n_must_eat = 0;
 		else
-			data->n_must_eat = 0;
+			data->n_must_eat = ft_atoi(argv[5]);
 	}
 	else
 		data->n_must_eat = 0;
@@ -42,6 +42,16 @@ void	start_forks(pthread_mutex_t *mutex, int *fork_i, int n_philo)
 	}
 }
 
+void	set_times(t_philos *philos, t_data data)
+{
+	philos->start_time = get_time_ms();
+	philos->last_time_eat = philos->start_time;
+	philos->time_to_die = data.time_to_die;
+	philos->time_to_eat = data.time_to_eat;
+	philos->time_to_sleep = data.time_to_sleep;
+	philos->limit = data.n_must_eat;
+}
+
 void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex, int *fork_i)
 {
 	int	cnt;
@@ -58,10 +68,8 @@ void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex, int *fork
 			philos[cnt].l_hand = 0;
 		else
 			philos[cnt].l_hand = cnt + 1;
-		philos[cnt].time_to_die = data.time_to_die;
-		philos[cnt].time_to_eat = data.time_to_eat;
-		philos[cnt].time_to_sleep = data.time_to_sleep;
-		philos[cnt].limit = data.n_must_eat;
+		set_times(&(philos[cnt]), data);
+		philos[cnt].log_lock = data.log_lock;
 		philos[cnt].someone_died = 0;
 		cnt++;	
 	}

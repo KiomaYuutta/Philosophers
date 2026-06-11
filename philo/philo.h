@@ -50,15 +50,17 @@ typedef struct s_philos
 }	t_philos;
 
 long long	get_time_ms();
+void	ft_putnbr_fd(long long n);
 void	*routine(void *arg);
 void	reset_struct(void);
-void	log_timestamp(t_philos *philos, pthread_mutex_t *log_lock, char *str);
+void	log_timestamp(t_philos *philos, pthread_mutex_t *log_lock, char *str, int is_monitor);
 void	set_data(char *argv[], t_data *data);
 void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex, int *forks_i);
 void	leave_forks(t_philos *philos);
 void	grab_forks(t_philos *philos);
 void	precise_sleep(int time_ms);
 void	free_mem(void);
+int		ft_strlen(const char *s);
 int		ft_atoi(const char *nptr);
 int		main_check(int argc, char *argv[]);
 int		start_simulation(t_philos *philos, pthread_mutex_t *log_lock, int n_philo);

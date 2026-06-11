@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 19:44:22 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/10 17:47:40 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/11 13:48:07 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void	grab_fork_right(t_philos *philos)
 		if (!(philos->forks_i[philos->r_hand]))
 		{
 			philos->forks_i[philos->r_hand] = 1;
-			log_timestamp(philos,  philos->log_lock, "has taken a fork");
+			log_timestamp(philos,  philos->log_lock, "has taken a fork", 0);
 			pthread_mutex_unlock(&(philos->forks_m[philos->r_hand]));
 			return ;
 		}
+		pthread_mutex_unlock(&(philos->forks_m[philos->r_hand]));
 	}
 }
 
@@ -39,10 +40,11 @@ void	grab_fork_left(t_philos *philos)
 		if (!(philos->forks_i[philos->l_hand]))
 		{
 			philos->forks_i[philos->l_hand] = 1;
-			log_timestamp(philos, philos->log_lock,"has taken a fork");
+			log_timestamp(philos, philos->log_lock,"has taken a fork", 0);
 			pthread_mutex_unlock(&(philos->forks_m[philos->l_hand]));
 			return ;
 		}
+		pthread_mutex_unlock(&(philos->forks_m[philos->l_hand]));
 	}
 }
 

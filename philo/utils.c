@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 11:02:50 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/09 17:29:51 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/11 13:30:02 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,24 @@ void	precise_sleep(int time_ms)
 	start = get_time_ms();
 	while ((get_time_ms() - start) < time_ms)
 		usleep(500);
+}
+
+void	ft_putnbr_fd(long long n)
+{
+	char		ln_chr;
+
+	if (n >= 10)
+		ft_putnbr_fd(n / 10);
+	ln_chr = (n % 10) + 48;
+	write(1, &ln_chr, 1);
+}
+
+int	ft_strlen(const char *s)
+{
+	int	counter;
+
+	counter = 0;
+	while (s[counter] != 0)
+		counter++;
+	return (counter);
 }

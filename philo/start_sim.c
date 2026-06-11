@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 11:08:32 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/10 17:12:37 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/11 13:48:49 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	monitor(t_philos *philos, pthread_mutex_t *log_lock, int n_philo)
 			if ((get_time_ms() - philos->last_time_eat) > philos->time_to_die)
 			{
 				set_death(philos, n_philo);
-				log_timestamp(&(philos[cnt]), log_lock, "died");
+				log_timestamp(&(philos[cnt]), log_lock, "died", 1);
 				return ;
 			}
 			cnt++;

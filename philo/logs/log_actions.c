@@ -6,13 +6,14 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 14:52:11 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/11 13:46:27 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:02:37 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	log_timestamp(t_philos *philos, pthread_mutex_t *log_lock, char *str, int is_monitor)
+void	log_timestamp(t_philos *philos, pthread_mutex_t *log_lock,
+			char *str, int is_monitor)
 {
 	pthread_mutex_lock(log_lock);
 	if (philos->someone_died && !is_monitor)

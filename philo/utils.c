@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 11:02:50 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/11 13:30:02 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/11 13:56:32 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_atoi(const char *nptr)
 	return (result * is_neg);
 }
 
-long long	get_time_ms()
+long long	get_time_ms(void)
 {
 	t_timeval	timeval;
 

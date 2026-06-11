@@ -15,10 +15,10 @@
 int	main(int argc, char *argv[])
 {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t log_lock;
+	pthread_mutex_t	log_lock;
 	t_philos		*philos;
 	t_data			data;
-	int			*forks_i;
+	int				*forks_i;
 
 	philos = NULL;
 	if (main_check(argc, argv))

@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 12:29:44 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/10 17:37:59 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/11 14:02:18 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	set_times(t_philos *philos, t_data data)
 	philos->limit = data.n_must_eat;
 }
 
-void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex, int *fork_i)
+void	set_philos(t_philos *philos, t_data data,
+			pthread_mutex_t *mutex, int *fork_i)
 {
 	int	cnt;
 
@@ -71,6 +72,6 @@ void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex, int *fork
 		set_times(&(philos[cnt]), data);
 		philos[cnt].log_lock = data.log_lock;
 		philos[cnt].someone_died = 0;
-		cnt++;	
+		cnt++;
 	}
 }

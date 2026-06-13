@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:45:43 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/03 10:30:05 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/11 21:03:16 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_chars(char *str)
 {
 	while (*str)
 	{
-		if (*str < 48 && *str > 57)
+		if (*str < 48 || *str > 57)
 			return (1);
 		str++;
 	}

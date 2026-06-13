@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:14:08 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/11 13:48:30 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/13 16:50:28 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,25 @@ void	mimir(t_philos *philos)
 void	*routine(void *arg)
 {
 	t_philos	*philos;
-	int			cnt;
 
 	philos = arg;
-	cnt = 0;
-	if (philos->limit == 0)
-		cnt--;
-	while (cnt != philos->limit)
+	while (1)
 	{
 		eat_spaghetti(philos);
 		tink(philos);
 		mimir(philos);
 		if (philos->someone_died)
 			return (NULL);
-		if (philos->limit != 0)
-			cnt++;
+		pthread_mutex_lock(philos->eaten_lock);
+		if (philos->limit)
+			philos->meny_eaten++;
+		if (*(philos->leave))
+		{
+			pthread_mutex_unlock(philos->eaten_lock);
+			return (NULL);
+		}
+		pthread_mutex_unlock(philos->eaten_lock);
+		
 	}
 	return (NULL);
 }

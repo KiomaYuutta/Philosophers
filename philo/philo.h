@@ -35,10 +35,12 @@ typedef struct s_philos
 {
 	pthread_mutex_t	*forks_m;
 	pthread_mutex_t	*log_lock;
+	pthread_mutex_t	*eaten_lock;
 	pthread_t		philos;
 	long long		start_time;
 	long long		last_time_eat;
 	int				*forks_i;
+	int				*leave;
 	int				philo_id;
 	int				l_hand;
 	int				r_hand;
@@ -47,6 +49,7 @@ typedef struct s_philos
 	int				time_to_sleep;
 	int				limit;
 	int				someone_died;
+	int				meny_eaten;
 }	t_philos;
 
 long long	get_time_ms(void);
@@ -57,7 +60,7 @@ void		log_timestamp(t_philos *philos, pthread_mutex_t *log_lock,
 				char *str, int is_monitor);
 void		set_data(char *argv[], t_data *data);
 void		set_philos(t_philos *philos, t_data data,
-				pthread_mutex_t *mutex, int *forks_i);
+				pthread_mutex_t *mutex);
 void		leave_forks(t_philos *philos);
 void		grab_forks(t_philos *philos);
 void		precise_sleep(int time_ms);
@@ -72,6 +75,6 @@ int			check_args(int argc);
 int			check_values(int argc, char *argv[]);
 int			check_chars(char *str);
 int			clean_memory(t_philos *philos, pthread_mutex_t *mutex,
-				int *fork_i, int n_philos);
+				int n_philos);
 
 #endif

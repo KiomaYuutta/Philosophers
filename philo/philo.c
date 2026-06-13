@@ -18,7 +18,7 @@ int	main(int argc, char *argv[])
 	pthread_mutex_t	log_lock;
 	t_philos		*philos;
 	t_data			data;
-	int				*forks_i;
+	int			leave;
 
 	philos = NULL;
 	if (main_check(argc, argv))
@@ -28,12 +28,14 @@ int	main(int argc, char *argv[])
 	data.log_lock = &log_lock;
 	forks = malloc(data.philo_cnt * sizeof(pthread_mutex_t));
 	philos = malloc(data.philo_cnt * sizeof(t_philos));
-	forks_i = malloc(data.philo_cnt * sizeof(int));
-	if (!philos || !forks || !forks_i)
-		return (clean_memory(philos, forks, forks_i, data.philo_cnt));
-	set_philos(philos, data, forks, forks_i);
+	philos->forks_i = malloc(data.philo_cnt * sizeof(int));
+	philos->eaten_lock = malloc(1 * sizeof(pthread_mutex_t));
+	philos->leave = &leave;
+	if (!philos || !forks || !(philos->forks_i) || !(philos->eaten_lock))
+		return (clean_memory(philos, forks, data.philo_cnt));
+	set_philos(philos, data, forks);
 	start_simulation(philos, &log_lock, data.philo_cnt);
 	pthread_mutex_destroy(&log_lock);
-	clean_memory(philos, forks, forks_i, data.philo_cnt);
+	clean_memory(philos, forks, data.philo_cnt);
 	return (0);
 }

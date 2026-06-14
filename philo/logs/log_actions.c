@@ -12,18 +12,17 @@
 
 #include "../philo.h"
 
-void	log_timestamp(t_philos *philos, pthread_mutex_t *log_lock,
+int	log_timestamp(t_philos *philos, pthread_mutex_t *log_lock,
 			char *str, int is_monitor)
 {
-	pthread_mutex_lock(log_lock);
 	pthread_mutex_lock(philos->end_lock);
 	if (*(philos->someone_died) && !is_monitor)
 	{
 		pthread_mutex_unlock(philos->end_lock);
-		pthread_mutex_unlock(log_lock);
-		return ;
+		return (1);
 	}
 	pthread_mutex_unlock(philos->end_lock);
+	pthread_mutex_lock(log_lock);
 	ft_putnbr_fd(get_time_ms() - philos->start_time);
 	write(1, " ", 1);
 	ft_putnbr_fd(philos->philo_id);
@@ -31,4 +30,5 @@ void	log_timestamp(t_philos *philos, pthread_mutex_t *log_lock,
 	write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
 	pthread_mutex_unlock(log_lock);
+	return (0);
 }

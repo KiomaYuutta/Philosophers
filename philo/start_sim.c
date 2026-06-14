@@ -15,7 +15,7 @@
 int	check_famine(t_philos *philos, int *finished_eating, int n_philo, int cnt)
 {
 	pthread_mutex_lock(philos->end_lock);
-	if (philos[cnt].meny_eaten == philos[cnt].limit)
+	if (philos[cnt].meny_eaten >= philos[cnt].limit)
 		(*finished_eating)++;
 	if (*finished_eating == n_philo)
 	{
@@ -32,25 +32,27 @@ void	monitor(t_philos *philos, pthread_mutex_t *log_lock, int n_philo)
 	int	cnt;
 	int	finished_eating;
 
-	finished_eating = 0;
 	while (1)
 	{
-		cnt = 0;
-		while (cnt < n_philo)
+		cnt = -1;
+		finished_eating = 0;
+		while (++cnt < n_philo)
 		{
+			pthread_mutex_lock(philos->end_lock);
 			if ((get_time_ms() - philos[cnt].last_time_eat)
 				> philos[cnt].time_to_die)
 			{
-				pthread_mutex_lock(philos->end_lock);
 				*(philos->someone_died) = 1;
 				pthread_mutex_unlock(philos->end_lock);
+				usleep(1000);
 				log_timestamp(&(philos[cnt]), log_lock, "died", 1);
 				return ;
 			}
+			pthread_mutex_unlock(philos->end_lock);
 			if (check_famine(philos, &finished_eating, n_philo, cnt))
 				return ;
-			cnt++;
 		}
+		usleep(250);
 	}
 }
 

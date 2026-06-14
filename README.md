@@ -48,7 +48,7 @@ Example 3 (Simulation stops after eating limit):
 
     ./philo 5 800 200 200 7
 
-Resources
+**Resources**
 
 Documentation & Articles
 

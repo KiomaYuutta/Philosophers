@@ -22,13 +22,18 @@ int	eat_spaghetti(t_philos *philos)
 		return (1);
 	}
 	pthread_mutex_unlock(philos->end_lock);
-	grab_forks(philos);
-	log_timestamp(philos, philos->log_lock, "is eating", 0);
+	if (grab_forks(philos)
+		|| log_timestamp(philos, philos->log_lock, "is eating", 0))
+		return (leave_forks(philos), 1);
+	pthread_mutex_lock(philos->end_lock);
 	philos->last_time_eat = get_time_ms();
+	pthread_mutex_unlock(philos->end_lock);
 	precise_sleep(philos->time_to_eat);
 	leave_forks(philos);
+	pthread_mutex_lock(philos->end_lock);
 	if (philos->limit)
 		philos->meny_eaten++;
+	pthread_mutex_unlock(philos->end_lock);
 	return (0);
 }
 

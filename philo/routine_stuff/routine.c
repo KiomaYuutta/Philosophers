@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 13:14:08 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/14 02:19:59 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/14 15:10:13 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	eat_spaghetti(t_philos *philos)
 {
 	pthread_mutex_lock(philos->end_lock);
-	if (philos->someone_died || *(philos->leave))
+	if (*(philos->someone_died) || *(philos->leave))
 	{
 		leave_forks(philos);
 		pthread_mutex_unlock(philos->end_lock);
@@ -35,7 +35,7 @@ int	eat_spaghetti(t_philos *philos)
 int	tink(t_philos *philos)
 {
 	pthread_mutex_lock(philos->end_lock);
-	if (philos->someone_died || *(philos->leave))
+	if (*(philos->someone_died) || *(philos->leave))
 	{
 		pthread_mutex_unlock(philos->end_lock);
 		return (1);
@@ -51,7 +51,7 @@ int	mimir(t_philos *philos)
 	long long	start;
 
 	pthread_mutex_lock(philos->end_lock);
-	if (philos->someone_died || *(philos->leave))
+	if (*(philos->someone_died) || *(philos->leave))
 	{
 		pthread_mutex_unlock(philos->end_lock);
 		return (1);
@@ -62,7 +62,7 @@ int	mimir(t_philos *philos)
 	while ((get_time_ms() - start) < philos->time_to_sleep)
 	{
 		pthread_mutex_lock(philos->end_lock);
-		if (philos->someone_died || *(philos->leave))
+		if (*(philos->someone_died) || *(philos->leave))
 		{
 			pthread_mutex_unlock(philos->end_lock);
 			return (1);
@@ -81,11 +81,11 @@ void	*routine(void *arg)
 	while (1)
 	{
 		if (eat_spaghetti(philos))
-			break ;
+			return (NULL);
 		if (tink(philos))
-			break ;
+			return (NULL);
 		if (mimir(philos))
-			break ;
+			return (NULL);
 	}
 	return (NULL);
 }

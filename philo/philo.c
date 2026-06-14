@@ -31,6 +31,7 @@ int	main(int argc, char *argv[])
 	philos->forks_i = malloc(data.philo_cnt * sizeof(int));
 	philos->end_lock = malloc(1 * sizeof(pthread_mutex_t));
 	philos->leave = &leave;
+	philos->someone_died = &argc;
 	if (!philos || !forks || !(philos->forks_i) || !(philos->end_lock))
 		return (clean_memory(philos, forks, data.philo_cnt));
 	set_philos(philos, data, forks);

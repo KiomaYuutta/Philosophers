@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 19:44:22 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/14 02:06:01 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/14 15:21:09 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ void	grab_fork_right(t_philos *philos)
 	while (1)
 	{
 		pthread_mutex_lock(philos->end_lock);
-		if (philos->someone_died)
+		if (*(philos->someone_died))
+		{
+			pthread_mutex_unlock(philos->end_lock);
 			return ;
+		}
 		pthread_mutex_unlock(philos->end_lock);
 		pthread_mutex_lock(&(philos->forks_m[philos->r_hand]));
 		if (!(philos->forks_i[philos->r_hand]))
@@ -37,8 +40,11 @@ void	grab_fork_left(t_philos *philos)
 	while (1)
 	{
 		pthread_mutex_lock(philos->end_lock);
-		if (philos->someone_died)
+		if (*(philos->someone_died))
+		{
+			pthread_mutex_unlock(philos->end_lock);
 			return ;
+		}
 		pthread_mutex_unlock(philos->end_lock);
 		pthread_mutex_lock(&(philos->forks_m[philos->l_hand]));
 		if (!(philos->forks_i[philos->l_hand]))
@@ -55,8 +61,11 @@ void	grab_fork_left(t_philos *philos)
 void	grab_forks(t_philos *philos)
 {
 	pthread_mutex_lock(philos->end_lock);
-	if (philos->someone_died)
+	if (*(philos->someone_died))
+	{
+		pthread_mutex_unlock(philos->end_lock);
 		return ;
+	}
 	pthread_mutex_unlock(philos->end_lock);
 	if (philos->philo_id % 2 == 0)
 	{

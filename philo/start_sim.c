@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 11:08:32 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/14 02:20:26 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/14 15:05:32 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,6 @@ int	check_famine(t_philos *philos, int *finished_eating, int n_philo, int cnt)
 	return (0);
 }
 
-void	set_death(t_philos *philos, int n_philos)
-{
-	int	cnt;
-
-	cnt = 0;
-	pthread_mutex_lock(philos->end_lock);
-	while (cnt < n_philos)
-	{
-		philos[cnt].someone_died = 1;
-		cnt++;
-	}
-	pthread_mutex_unlock(philos->end_lock);
-}
-
 void	monitor(t_philos *philos, pthread_mutex_t *log_lock, int n_philo)
 {
 	int	cnt;
@@ -55,7 +41,9 @@ void	monitor(t_philos *philos, pthread_mutex_t *log_lock, int n_philo)
 			if ((get_time_ms() - philos[cnt].last_time_eat)
 				> philos[cnt].time_to_die)
 			{
-				set_death(philos, n_philo);
+				pthread_mutex_lock(philos->end_lock);
+				*(philos->someone_died) = 1;
+				pthread_mutex_unlock(philos->end_lock);
 				log_timestamp(&(philos[cnt]), log_lock, "died", 1);
 				return ;
 			}

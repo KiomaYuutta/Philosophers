@@ -41,6 +41,7 @@ typedef struct s_philos
 	long long		last_time_eat;
 	int				*forks_i;
 	int				*leave;
+	int				*someone_died;
 	int				philo_id;
 	int				l_hand;
 	int				r_hand;
@@ -48,7 +49,6 @@ typedef struct s_philos
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				limit;
-	int				someone_died;
 	int				meny_eaten;
 }	t_philos;
 

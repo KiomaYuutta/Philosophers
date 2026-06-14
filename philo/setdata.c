@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 12:29:44 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/14 02:19:20 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/14 15:02:06 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,12 @@ void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex)
 
 	cnt = 0;
 	*(philos->leave) = 0;
+	*(philos->someone_died) = 0;
 	start_forks(mutex, philos->forks_i, data.philo_cnt);
 	pthread_mutex_init(philos->end_lock, NULL);
 	while (cnt < data.philo_cnt)
 	{
+		philos[cnt].someone_died = philos[0].someone_died;
 		philos[cnt].leave = philos[0].leave;
 		philos[cnt].philo_id = cnt + 1;
 		philos[cnt].forks_m = mutex;
@@ -77,7 +79,6 @@ void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex)
 			philos[cnt].l_hand = cnt + 1;
 		set_times(&(philos[cnt]), data);
 		philos[cnt].log_lock = data.log_lock;
-		philos[cnt].someone_died = 0;
 		philos[cnt].end_lock = philos[0].end_lock;
 		cnt++;
 	}

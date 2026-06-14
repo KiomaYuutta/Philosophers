@@ -15,7 +15,7 @@ routine_stuff/routine.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 LIBS = -pthread
 
 all: $(NAME)

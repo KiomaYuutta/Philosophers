@@ -6,7 +6,7 @@
 /*   By: dide-alm <dide-alm@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 12:29:44 by dide-alm          #+#    #+#             */
-/*   Updated: 2026/06/13 16:52:37 by dide-alm         ###   ########.fr       */
+/*   Updated: 2026/06/14 02:19:20 by dide-alm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	set_times(t_philos *philos, t_data data)
 		philos->meny_eaten = -1;
 	else
 		philos->meny_eaten = 0;
-	
 }
 
 void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex)
@@ -64,7 +63,7 @@ void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex)
 	cnt = 0;
 	*(philos->leave) = 0;
 	start_forks(mutex, philos->forks_i, data.philo_cnt);
-	pthread_mutex_init(philos->eaten_lock, NULL);
+	pthread_mutex_init(philos->end_lock, NULL);
 	while (cnt < data.philo_cnt)
 	{
 		philos[cnt].leave = philos[0].leave;
@@ -79,7 +78,7 @@ void	set_philos(t_philos *philos, t_data data, pthread_mutex_t *mutex)
 		set_times(&(philos[cnt]), data);
 		philos[cnt].log_lock = data.log_lock;
 		philos[cnt].someone_died = 0;
-		philos[cnt].eaten_lock = philos[0].eaten_lock;
+		philos[cnt].end_lock = philos[0].end_lock;
 		cnt++;
 	}
 }

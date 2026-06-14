@@ -35,7 +35,7 @@ typedef struct s_philos
 {
 	pthread_mutex_t	*forks_m;
 	pthread_mutex_t	*log_lock;
-	pthread_mutex_t	*eaten_lock;
+	pthread_mutex_t	*end_lock;
 	pthread_t		philos;
 	long long		start_time;
 	long long		last_time_eat;
